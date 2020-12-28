@@ -37,9 +37,18 @@ move_uploaded_file($file['tmp_name'], $uploadfile);
 $sql = "INSERT INTO files_php (id, filename) VALUES ('" . mysqli_real_escape_string($con, $fileid) . "', '" . mysqli_real_escape_string($con, $filename) . "')";
 mysqli_query($con, $sql);
 
-// Erfolgs-Antwort erstellen
-jsonResponse(200, [
+// Erfolgs-Antwort erstellen (-> REST-API)
+/*jsonResponse(200, [
+    'status' => true,
+    'filename' => $filename,
+    'download' => getFileDownloadURL($fileid)
+]);*/
+
+
+// Erfolgs-Antwort nur speichern und Nutzer wieder zum Formular weiterleiten
+storeUpload([
     'status' => true,
     'filename' => $filename,
     'download' => getFileDownloadURL($fileid)
 ]);
+header("Location: " . ROOTURL);
