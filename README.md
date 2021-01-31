@@ -49,6 +49,8 @@ Erfolgreicher Upload | 200 | `{"status":true,"download":"http://localhost/downlo
 Upload fehlgeschlagen, da keine Datei durch den `file`-Parameter bereitgestellt wurde | 400 | `{"status":false,"message":"No file uploaded"}`
 *Internal server error* | 500 | `{"status":false,"message":"Internal server error"}`
 
+❗ Bei der Variante ohne JavaScript (dieser) wird bei einem erfolgreichem Upload keine Antwort zurückgegeben, sondern wieder zum Upload-Formular weitergeleitet. Unter dem Formular kann dann die Antwort in der Tabelle eingesehen werden. Falls eine direkte Antwortausgabe (für z. B. eine REST-Api) gewünscht ist, kann man das in der ```script/up.php``` durch einfaches Aus- und Einkommentieren umstellen.
+
 **Download:**
 
 ```GET```: ```http://localhost/download/{fileid}```
