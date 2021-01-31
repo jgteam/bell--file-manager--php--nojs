@@ -9,29 +9,35 @@
 
         <h1>HTML Upload Form (Stack: PHP ohne JavaScript)</h1>
 
+        <!-- Links zu den Verläufen -->
+        <hr/>
+        <a href="history?upload">&uparrow; Upload History</a> &verbar; <a href="history?download">&downarrow; Download History</a>
+        <hr/>
+
         <!-- Formular, für den Dateiupload: -->
-        <form id="uploadform" action="/upload" method="post" enctype="multipart/form-data">
-            <label>File: (text/*)<input id="file" name="file" type="file" size="50" accept="text/*"></label>
-            <button>Über AJAX senden</button>
+        <form id="uploadform" action="upload" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Form</legend>
+                <label>File: (text/*)<input id="file" name="file" type="file" size="50" accept="text/*"></label>
+                <button>Über AJAX senden</button>
+            </fieldset>
         </form>
 
         <!-- Tabelle, in welche zukünftige Antworten geschrieben werden -->
         <table id="responses" border="1">
             <tr>
-                <th>Responses:</th>
+                <th>Responses (Upload History):</th>
             </tr>
 
             <?php
 
-            session_start();
-            // Startet die Session, damit wir auf die $_SESSION Variable zugreifen können
+            include_once("functions.php");
 
-            $uploads = (isset($_SESSION['uploads'])) ? $_SESSION['uploads'] : null ;
+            $uploads = getUploadHistory() ;
             // Array mit allen Uploads
 
             if($uploads !== null):
             // Prüft ob Uploads vorhanden sind
-
 
             foreach($uploads as $upload) {
                 // Alle Uploads mit der Foreach-Schleife durchgehen

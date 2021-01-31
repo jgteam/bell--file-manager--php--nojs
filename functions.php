@@ -6,9 +6,6 @@ require_once("config.php");
 // Formt eine Antwort, mit HTTP-Status-Code und Array -> JSON
 function jsonResponse($statusCode, $data) {
 
-    // Upload in der PHP-SESSION Speichern
-    storeUpload($data);
-
     // Statuscode setzen
     http_response_code($statusCode);
 
@@ -23,6 +20,47 @@ function jsonResponse($statusCode, $data) {
 // Gibt die URL für den Dateidownload zurück
 function getFileDownloadURL($fileid) {
     return ROOTURL . "download/" . $fileid;
+}
+
+// Startet eine PHP-Session, sofern noch keine aktiv ist
+function startSession() {
+    if(session_status() != PHP_SESSION_ACTIVE) session_start();
+}
+
+// Speichert Upload-Information im Verlauf in der PHP_SESSION
+function pushToUploadHistory($response) {
+    startSession();
+
+    if(!isset($_SESSION['uploads'])) $_SESSION['uploads'] = [];
+    $_SESSION['uploads'][] = $response;
+
+}
+
+// Gibt den Upload-Verlauf zurück
+function getUploadHistory() {
+    startSession();
+
+    if(!isset($_SESSION['uploads'])) return null;
+    return $_SESSION['uploads'];
+
+}
+
+// Speichert Download-Information im Verlauf in der PHP_SESSION
+function pushToDownloadHistory($fileid) {
+    startSession();
+
+    if(!isset($_SESSION['downloads'])) $_SESSION['downloads'] = [];
+    $_SESSION['downloads'][] = $fileid;
+
+}
+
+// Gibt den Download-Verlauf zurück
+function getDownloadHistory() {
+    startSession();
+
+    if(!isset($_SESSION['downloads'])) return null;
+    return $_SESSION['downloads'];
+
 }
 
 // https://stackoverflow.com/a/15875555
@@ -44,9 +82,9 @@ function uniqueID() {
 }
 
 // Speichert neuen Upload-Eintrag in der PHP-SESSION Variable
-function storeUpload($upload) {
+/*function storeUpload($upload) {
     if (!isset($_SESSION['uploads'])) {
         $_SESSION['uploads'] = [];
     }
     array_push($_SESSION['uploads'], $upload);
-}
+}*/
