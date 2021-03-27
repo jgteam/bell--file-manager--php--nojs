@@ -19,7 +19,7 @@
             <fieldset>
                 <legend>Form</legend>
                 <label>File: (text/*)<input id="file" name="file" type="file" size="50" accept="text/*"></label>
-                <button>Über AJAX senden</button>
+                <button>Über HTML-Form senden</button>
             </fieldset>
         </form>
 
