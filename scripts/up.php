@@ -47,11 +47,18 @@ $response = [
     'md5' => md5_file($uploadfile)
 ];
 
+
+// Erfolgs-Antwort speichern
+pushToUploadHistory($response);
+
+// [!] Folgender Codeabschnitt bestimmt, ob eine REST-API-Antwort geformt wird, oder ob wieder zum Userinterface weitergeleitet werden soll
+
+// --- REST-API:
+
 // Erfolgs-Antwort erstellen (-> REST-API)
 //jsonResponse(200, $response);
 
-// Erfolgs-Antwort nur speichern und Nutzer wieder zum Formular weiterleiten
-pushToUploadHistory($response);
+// --- USERINTERFACE:
 
-// Weiterleitung (zurück) zum Formular
+// Weiterleitung (zurück) zum Formular (-> USERINTERFACE)
 header("Location: " . ROOTURL);
